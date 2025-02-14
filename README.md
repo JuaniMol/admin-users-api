@@ -1,99 +1,67 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Users API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST construida con NestJS y MongoDB para la gestión de usuarios.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos Previos
 
-## Description
+Es muy importante tener Docker instalado, en mi caso para Windows instale Docker Desktop
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Docker
+- Node.js (opcional, solo para desarrollo local)
 
-## Project setup
+## Configuración
 
+1. Clonar el repositorio:
 ```bash
-$ npm install
+git clone <url-del-repositorio>
+cd admin-users-api
 ```
 
-## Compile and run the project
+## Ejecución con Docker
 
+1. Levantar el contenedor con sus servicios
 ```bash
-# development
-$ npm run start
+npm run docker:dev
+```
+2. Ver la documentación en [http://localhost:3000/api/](http://localhost:3000/api/)
 
-# watch mode
-$ npm run start:dev
+3. Ya puedes usar la API, yo personalmente uso la extensión ThunderClient
 
-# production mode
-$ npm run start:prod
+## Realizar Test E2E
+1. Levantar el contenedor con sus servicios
+```bash
+npm run docker:test:watch
 ```
 
-## Run tests
+2. Revisar la consola y verificar el resultado del test E2E
+
+## Realizar Tests Unitarios
+
+1. Como se hacen localmente debes instalar los paquetes de node
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. Podemos probar todos los test unitarios al mismo tiempo así:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run test
 ```
+3. Se puede probar con la extensión de Jest para VSCode dentro del archivo `users.service.spec.ts`
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Decisiones importantes
 
-## Resources
+1. Para hacer la MongoDB tenia dos opciones:
+    - Usar una bd en la nube como lo es MongoAtlas
+    - Usar una instancia local de mongoDB
 
-Check out a few resources that may come in handy when working with NestJS:
+    Decidi usar instancia local y dockerizada, me parece mas interesante para implementar docker-compose y conectar los dos servicios dockerizados
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+2. Para las validaciones elegí usar class-validator. Es una libreria muy popular que facilita las validaciones más populares.
 
-## Support
+3. Decidi hacer un test E2E. Es algo que no se pide, pero ya que aprendi a hacer test unitarios investigué un poco más y me parecio interesante agregarlo.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. Para la documentacion use Swagger integrado de NestJS, con decoradores en el `users.controller.ts` se puede documentar facilmente. Lo unico que no me gusta es que tuve que refactorizar en el archivo `users.examples.ts` por que quedaba muy sucio el codigo y perdia legibilidad.
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+5. Para el test e2e usé un volumen diferente para guardar la informacion temporal de cada test. Esto con el objetivo de mantener la persistencia en el entorno dev.

@@ -6,7 +6,6 @@ import {
   Delete,
   Body,
   Param,
-  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiTags,
