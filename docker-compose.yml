@@ -1,0 +1,26 @@
+version: '3'
+services:
+  # Servicio para la API de NestJS
+  api:
+    build: . # Construye la imagen usando el Dockerfile
+    ports:
+      - "3000:3000" # Expone el puerto 3000 de la API
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/userdb # Conexión a MongoDB
+    depends_on:
+      - mongodb # Depende del servicio de MongoDB
+
+  # Servicio para MongoDB
+  mongodb:
+    image: mongo:latest # Usa la imagen oficial de MongoDB
+    ports:
+      - "27017:27017" # Expone el puerto 27017 de MongoDB
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root # Usuario root
+      MONGO_INITDB_ROOT_PASSWORD: example # Contraseña del root
+    volumes:
+      - mongo-data:/data/db # Volumen para persistir los datos de MongoDB
+
+# Volumen para persistir los datos de MongoDB
+volumes:
+  mongo-data:
