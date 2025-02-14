@@ -13,7 +13,7 @@ Es muy importante tener Docker instalado, en mi caso para Windows instale Docker
 
 1. Clonar el repositorio:
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/JuaniMol/admin-users-api
 cd admin-users-api
 ```
 
