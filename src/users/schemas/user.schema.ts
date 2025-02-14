@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { Profile, ProfileSchema } from './profile.schema';
 
 
-@Schema({ timestamps: true }) // Habilita timestamps (createdAt, updatedAt)
+@Schema() // Habilita timestamps (createdAt, updatedAt)
 export class User extends Document {
   @Prop({ required: true })
   name: string;
