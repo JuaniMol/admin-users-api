@@ -7,7 +7,7 @@ API REST construida con NestJS y MongoDB para la gestión de usuarios.
 Es muy importante tener Docker instalado, en mi caso para Windows instale Docker Desktop
 
 - Docker
-- Node.js (opcional, solo para desarrollo local)
+- Node.js
 
 ## Configuración
 
