@@ -1,0 +1,24 @@
+services:
+  test-e2e:
+    build: .
+    ports:
+      - "3000:3000" # Expone el puerto 3000 de la API
+    command: npm run test:e2e
+    environment:
+      MONGO_URI: mongodb://root:example@mongodb-test:27017/testdb?authSource=admin
+    depends_on:
+        - mongodb-test
+  mongodb-test:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data-test:/data/db
+    logging:
+      driver: "none"
+
+volumes:
+  mongo-data-test:
