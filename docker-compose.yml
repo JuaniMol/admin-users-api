@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000" # Expone el puerto 3000 de la API
     environment:
-      MONGO_URI: mongodb://mongodb:27017/userdb # Conexión a MongoDB
+      MONGO_URI: mongodb://root:example@mongodb:27017/userdb?authSource=admin # Conexión a MongoDB con autenticación
     depends_on:
       - mongodb # Depende del servicio de MongoDB
 

@@ -8,17 +8,17 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const createdUser = new this.userModel(createUserDto);
-      return await createdUser.save();
+        const createdUser = await this.userModel.create(createUserDto);
+        return createdUser;
     } catch (error) {
-      if (error.code === 11000) {
-        throw new ConflictException('Email already exists');
-      }
-      throw error;
+        if (error.code === 11000) {
+            throw new ConflictException('Email already exists');
+        }
+        throw error;
     }
-  }
+}
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
