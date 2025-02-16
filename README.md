@@ -4,7 +4,7 @@ API REST construida con NestJS y MongoDB para la gestión de usuarios.
 
 ## Requisitos Previos
 
-Es muy importante tener Docker instalado, en mi caso para Windows instale Docker Desktop
+Es muy importante tener Docker instalado. En Windows, se requiere Docker Desktop.
 
 - Docker
 - Node.js
@@ -19,49 +19,56 @@ cd admin-users-api
 
 ## Ejecución con Docker
 
-1. Levantar el contenedor con sus servicios
+1. Levantar el contenedor con sus servicios:
 ```bash
 npm run docker:dev
 ```
-2. Ver la documentación en [http://localhost:3000/api/](http://localhost:3000/api/)
+2. Acceder a la documentación en [http://localhost:3000/api/](http://localhost:3000/api/)
 
-3. Ya puedes usar la API, yo personalmente uso la extensión ThunderClient
+3. La API está lista para usar. Se recomienda usar ThunderClient como cliente HTTP
 
-## Realizar Test E2E
-1. Levantar el contenedor con sus servicios
+## Realizar Tests E2E
+
+1. Levantar el contenedor con sus servicios:
 ```bash
 npm run docker:test:watch
 ```
 
-2. Revisar la consola y verificar el resultado del test E2E
+2. Revisar la consola para verificar los resultados de los tests E2E
 
 ## Realizar Tests Unitarios
 
-1. Como se hacen localmente debes instalar los paquetes de node
-
+1. Instalar las dependencias del proyecto:
 ```bash
 npm install
 ```
 
-2. Podemos probar todos los test unitarios al mismo tiempo así:
-
+2. Ejecutar todos los tests unitarios:
 ```bash
 npm run test
 ```
-3. Se puede probar con la extensión de Jest para VSCode dentro del archivo `users.service.spec.ts`
 
-## Decisiones importantes
+3. Opcionalmente, se pueden ejecutar los tests usando la extensión Jest para VSCode en el archivo `users.service.spec.ts`
 
-1. Para hacer la MongoDB tenia dos opciones:
-    - Usar una bd en la nube como lo es MongoAtlas
-    - Usar una instancia local de mongoDB
+## Decisiones de Implementación
 
-    Decidi usar instancia local y dockerizada, me parece mas interesante para implementar docker-compose y conectar los dos servicios dockerizados
+1. Base de datos MongoDB:
+    - Se optó por una instancia local dockerizada en lugar de MongoDB Atlas
+    - Esta decisión facilita la implementación del docker-compose y la conexión entre servicios dockerizados
 
-2. Para las validaciones elegí usar class-validator. Es una libreria muy popular que facilita las validaciones más populares.
+2. Validaciones:
+    - Se utilizó class-validator por su popularidad y facilidad de uso
+    - Proporciona las validaciones más comunes de forma declarativa
 
-3. Decidi hacer un test E2E. Es algo que no se pide, pero ya que aprendi a hacer test unitarios investigué un poco más y me parecio interesante agregarlo.
+3. Testing:
+    - Se implementaron tests E2E además de los tests unitarios requeridos
+    - Esto proporciona una cobertura más completa del código
 
-4. Para la documentacion use Swagger integrado de NestJS, con decoradores en el `users.controller.ts` se puede documentar facilmente. Lo unico que no me gusta es que tuve que refactorizar en el archivo `users.examples.ts` por que quedaba muy sucio el codigo y perdia legibilidad.
+4. Documentación:
+    - Se implementó Swagger integrado con NestJS
+    - Los decoradores en `users.controller.ts` facilitan la documentación
+    - Se refactorizó el código de ejemplos en `users.examples.ts` para mejorar la legibilidad
 
-5. Para el test e2e usé un volumen diferente para guardar la informacion temporal de cada test. Esto con el objetivo de mantener la persistencia en el entorno dev.
+5. Persistencia en Tests:
+    - Se utiliza un volumen separado para los tests E2E
+    - Esto permite mantener la persistencia en el entorno de desarrollo sin interferencias
